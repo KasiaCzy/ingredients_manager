@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block page_header %}
+    <h2 class="text-center my-3">If you want to know what ingredients you have at any given time, always update your inventory
+      after shopping, cooking and cleaning.</h2>
+{% endblock page_header %}
+
+{% block content %}
+
+  <a class="btn btn-primary mr-5 mt-2" href="{% url 'manage_ingredients:add_ingredient' %}" role="button">
+    Add ingredient &raquo;
+  </a>
+  <a class="btn btn-primary mt-2" href="{% url 'manage_ingredients:manage_categories' %}" role="button">
+    Manage categories &raquo;
+  </a>
+  <br>
+    <form method="get" class="form-inline mt-4">
+      <div class="row">
+        {{ filter.form.as_p }}
+      </div>
+      <button class="btn btn-primary ml-5 mt-2" type="submit">Search</button>
+    </form>
+  <br>
+  {% if ingredients %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category</th>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Unit</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for ingredient in ingredients %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ ingredient.category.name }}</td>
+        <td>{{ ingredient.name }}</td>
+        <td>{{ ingredient.total | floatformat }}</td>
+        <td>{{ ingredient.get_unit_display }}</td>
+        <td>
+          <a href="{% url 'manage_ingredients:add_owned_ingredient' ingredient.id %}">
+            <button type="button" class="btn btn-light btn-sm">
+              <img src="{% static 'images/basket.png' %}" width="15" height="20">
+            </button>
+          </a>
+        </td>
+        <td>
+          <a href="{% url 'manage_ingredients:owned_ingredients' ingredient.id %}">
+            <button type="button" class="btn btn-light btn-sm">
+              <img src="{% static 'images/storage.png' %}" width="18" height="20"> /
+              <img src="{% static 'images/cook.png' %}" width="18" height="20"> /
+              <img src="{% static 'images/trash.png' %}" width="18" height="20">
+            </button>
+          </a>
+        </td>
+        <td>
+          <a href="{% url 'manage_ingredients:get_recipes' ingredient.id%}">
+            <button type="button" class="btn btn-light btn-sm">Recipes</button></a>
+        </td>
+        <td>
+          <a href="{% url 'manage_ingredients:edit_ingredient' ingredient.id %}">
+            <button type="button" class="btn btn-warning btn-sm">Edit</button></a>
+        </td>
+        <td>
+          <a href="{% url 'manage_ingredients:delete_ingredient' ingredient.id %}">
+            <button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <h2>It is time to start keeping track of the contents of your pantry and fridge.
+      Add ingredients and suitable categories for them.</h2>
+  {% endif %}
+
+{% endblock content %}

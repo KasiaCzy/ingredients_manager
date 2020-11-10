@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h3>{{title}}</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+  {% if e %}
+    <div class="alert alert-danger">
+      {{ e }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+  {% if object %}
+    <form action="{% url url_name object %}" method='post' class="form" enctype="multipart/form-data">
+  {% else %}
+    <form action="{% url url_name %}" method='post' class="form" enctype="multipart/form-data">
+  {% endif %}
+    {% csrf_token %}
+    {% bootstrap_form form %}
+      <button name="submit" class="btn btn-primary">Add</button>
+      <a class="btn btn-sm btn-secondary" href="{% url url_back %}">Back</a>
+    </form>
+    </form>
+
+{% endblock content %}

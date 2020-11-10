@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+<form action="." method='post'>
+  {% csrf_token %}
+    <h3 class="mb-4">Do you want to delete the {{name}}: "{{ field }}"?</h3>
+  {% buttons %}
+    <input class="btn btn-success" type="submit" value="Yes" />
+    {% if object %}
+      <a href="{% url url_name object%}"><button type="button" class="btn btn-danger">Cancel</button></a>
+    {% else %}
+      <a href="{% url url_name %}"><button type="button" class="btn btn-danger">Cancel</button></a>
+    {% endif %}
+  {% endbuttons %}
+</form>
+
+{% endblock content %}

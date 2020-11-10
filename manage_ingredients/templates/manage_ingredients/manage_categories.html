@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h3>{{ title }}</h3>
+  <a class="btn btn-danger" href="{% url 'manage_ingredients:categories_list' %}" role="button">
+    Delete categories &raquo;
+  </a>
+{% endblock page_header %}
+
+{% block content %}
+
+  <form action="{% url 'manage_ingredients:manage_categories' %}" method='post' class="form" >
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+      {% bootstrap_form form %}
+    {% endfor %}
+    <button name="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-sm btn-secondary" href="{% url 'manage_ingredients:ingredients_list' %}">Back</a>
+  </form>
+
+{% endblock content %}

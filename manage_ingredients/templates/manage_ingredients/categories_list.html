@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+  <h1 class="text-center">Be careful! If you delete a category, category items will be deleted too.</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+  <a class="btn btn-secondary btn-lg btn-block" href="{% url 'manage_ingredients:manage_categories' %}">Back</a>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ category.name }}</td>
+          <td><a href="{% url 'manage_ingredients:delete_category' category.id %}">
+            <button type="button" class="btn btn-danger">Delete</button></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

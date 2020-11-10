@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_header %}
+  <h1 class="text-center my-3">{{ ingredient.name }}
+    <a href="{% url 'manage_ingredients:add_owned_ingredient_id' ingredient.id%}">
+      <button type="button" class="btn btn-light btn-sm">
+        <img src="{% static 'images/basket.png' %}" width="25" height="30">
+      </button>
+    </a>
+  </h1>
+{% endblock page_header %}
+
+{% block content %}
+
+  {% if owned_ingredient %}
+    <div class="row row-cols-1 row-cols-md-4">
+    {% for item in owned_ingredient %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.quantity | floatformat }} {{ ingredient.get_unit_display }} </h5>
+          <p class="card-text">'Best before' date: {{ item.best_before | date:"j M Y" }}</p>
+          <p class="card-text">tip: "{{ item.tip }}"</p>
+          <a href="{% url 'manage_ingredients:edit_owned_ingredient' item.id %}">
+            <button type="button" class="btn btn-warning btn-sm">Edit</button></a>
+          <a href="{% url 'manage_ingredients:delete_owned_ingredient' item.id %}">
+            <button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  {% endif %}
+
+{% endblock content %}

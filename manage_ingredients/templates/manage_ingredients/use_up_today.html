@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_header %}
+  <h2 class="text-center my-3">Watch out for food about to go bad, and make sure you use it up before it does.</h2>
+{% endblock page_header %}
+
+{% block content %}
+  {% if not should_use and not passed_date %}
+    <h2>All your ingredients are fresh or your storage is empty.</h2>
+  {% endif %}
+
+    {% include "./cards.html" with objects=passed_date color='danger' text="'Best before' date has passed. But it does not necessarily mean that the food is no longer edible. Check before you throw in the trash."%}
+
+    {% include "./cards.html" with objects=should_use color='warning' text='You should use up today.'%}
+
+{% endblock content %}

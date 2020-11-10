@@ -1,0 +1,31 @@
+{% if objects %}
+    <div class="alert alert-{{ color }} my-4" role="alert">
+      {{ text }}
+    </div>
+    <div class="row row-cols-1 row-cols-md-3">
+      {% for ingredient in objects %}
+        <div class="col mb-4">
+          <div class="card border-{{ color }} mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5>{{ ingredient.ingredient_name.name }}
+              <a href="{% url 'manage_ingredients:edit_owned_ingredient_use_up' ingredient.id %}">
+                <button type="button" class="btn btn-warning btn-sm ml-5">Edit</button></a>
+              <a href="{% url 'manage_ingredients:delete_owned_ingredient_use_up' ingredient.id %}">
+                <button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+              </h5>
+              <p>tip: "{{ ingredient.tip }}"</p>
+            </div>
+            <div class="card-body text-{{ color }}">
+              <h5 class="card-title">Date has passed: {{ ingredient.best_before | date:"j M Y" }}</h5>
+              <p class="card-text">
+                quantity: {{ ingredient.quantity | floatformat}} {{ ingredient.ingredient_name.get_unit_display }}
+              </p>
+              <a href="{% url 'manage_ingredients:get_recipes' ingredient.ingredient_name.id%}">
+                <button type="button" class="btn btn-outline-primary">Recipes &raquo;</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endif %}
