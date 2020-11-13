@@ -43,6 +43,7 @@ def owned_ingredients(request, ingredient_id):
 @login_required
 def recipes_list(request):
     recipes = Recipe.objects.filter(owner=request.user)
+
     recipes_filter = RecipeFilter(request.GET, request=request, queryset=recipes)
     recipes = recipes_filter.qs
 
@@ -125,7 +126,7 @@ def add_owned_ingredient(request, ingredient_id, redirect_url, url_name):
         form = AddOwnedIngredientForm(data=request.POST)
         if form.is_valid():
             added_item = form.save(commit=False)
-            added_item.ingredient_name = ingredient
+            added_item.ingredient = ingredient
             added_item.owner = request.user
             added_item.save()
             if redirect_url == 'manage_ingredients:owned_ingredients':
@@ -140,9 +141,9 @@ def add_owned_ingredient(request, ingredient_id, redirect_url, url_name):
 
 
 @login_required
-def edit_owned_ingredient(request, ownedingredient_id, redirect_url, url_name):
-    owned_ingredient = OwnedIngredient.objects.get(id=ownedingredient_id)
-    ingredient_id = owned_ingredient.ingredient_name.id
+def edit_owned_ingredient(request, owned_ingredient_id, redirect_url, url_name):
+    owned_ingredient = OwnedIngredient.objects.get(id=owned_ingredient_id)
+    ingredient_id = owned_ingredient.ingredient.id
     check_owner(owned_ingredient.owner, request.user)
     if request.method != 'POST':
         form = EditOwnedIngredientForm(instance=owned_ingredient)
@@ -167,9 +168,9 @@ def edit_owned_ingredient(request, ownedingredient_id, redirect_url, url_name):
 
 
 @login_required
-def delete_owned_ingredient(request, ownedingredient_id, redirect_url, url_name):
-    owned_ingredient = OwnedIngredient.objects.get(id=ownedingredient_id)
-    ingredient_id = owned_ingredient.ingredient_name.id
+def delete_owned_ingredient(request, owned_ingredient_id, redirect_url, url_name):
+    owned_ingredient = OwnedIngredient.objects.get(id=owned_ingredient_id)
+    ingredient_id = owned_ingredient.ingredient.id
     check_owner(owned_ingredient.owner, request.user)
     if request.method == 'POST':
         owned_ingredient.delete()
@@ -179,7 +180,7 @@ def delete_owned_ingredient(request, ownedingredient_id, redirect_url, url_name)
             return redirect(redirect_url)
     if redirect_url == 'manage_ingredients:owned_ingredients':
         context = {'ingredient': owned_ingredient, 'url_name': url_name,
-                   'object': ingredient_id, 'name': owned_ingredient.ingredient_name,
+                   'object': ingredient_id, 'name': owned_ingredient.ingredient,
                    'field': owned_ingredient.quantity}
     else:
         context = {'ingredient': owned_ingredient, 'url_name': url_name,

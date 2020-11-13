@@ -11,7 +11,7 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-      <button name="submit" class="btn btn-primary">Submit</button>
+      <button name="submit" class="btn btn-info">Submit</button>
       {% if object_cancel %}
         <a href="{% url url_cancel object_cancel%}"><button type="button" class="btn btn-danger">Cancel</button></a>
       {% else %}

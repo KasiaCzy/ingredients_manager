@@ -1,0 +1,42 @@
+<div class="row row-cols-1 row-cols-md-2">
+  {% for recipe in recipes %}
+    <div class="col mb-4">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: #f0fafc">
+          <h5>{{ recipe.title }}</h5>
+          <br>
+          {% if buttons %}
+            <a href="{% url 'manage_ingredients:edit_recipe' recipe.id %}">
+                <button type="button" class="btn btn-sm btn-warning">Edit</button></a>
+            <a href="{% url 'manage_ingredients:delete_recipe' recipe.id %}">
+                <button type="button" class="btn btn-sm btn-danger">Delete</button></a>
+          {% endif %}
+        </div>
+        <div class="card-body text-info">
+          <p>Currently in your fridge and pantry:</p>
+          <ul>
+            {% for ingredient in recipe.ingredient.all %}
+              {% if ingredient.ownedingredient_set.all %}
+                <li>{{ ingredient.name }}
+                  <ul>
+                    {% for i in ingredient.ownedingredient_set.all %}
+                      {% if i.note != '...' %}
+                        <li>{{ i.quantity | floatformat}} {{ ingredient.get_unit_display }}
+                          | 'best before' date: {{ i.best_before | date:"j M Y" }} | note: "{{ i.note }}"</li>
+                      {% else %}
+                        <li>{{ i.quantity | floatformat}} {{ ingredient.get_unit_display }}
+                          | 'best before' date: {{ i.best_before | date:"j M Y" }}</li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          <a href="{{ recipe.link }}" target="_blank" rel="noopener">
+            <button type="button" class="btn btn-outline-info">Open this recipe &raquo;</button></a>
+        </div>
+        </div>
+    </div>
+  {% endfor %}
+</div>

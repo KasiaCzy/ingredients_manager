@@ -16,7 +16,7 @@
     {% for form in formset %}
       {% bootstrap_form form %}
     {% endfor %}
-    <button name="submit" class="btn btn-primary">Submit</button>
+    <button name="submit" class="btn btn-info">Submit</button>
     <a class="btn btn-sm btn-secondary" href="{% url 'manage_ingredients:ingredients_list' %}">Back</a>
   </form>
 

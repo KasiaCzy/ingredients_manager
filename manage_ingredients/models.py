@@ -38,10 +38,10 @@ class Ingredient(models.Model):
 
 
 class OwnedIngredient(models.Model):
-    tip = models.CharField(max_length=16, default='...')
+    note = models.CharField(max_length=16, default='...')
     quantity = models.FloatField(default=0)
     best_before = models.DateField()
-    ingredient_name = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 

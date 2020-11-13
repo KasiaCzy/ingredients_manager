@@ -10,8 +10,8 @@
     <h2>All your ingredients are fresh or your storage is empty.</h2>
   {% endif %}
 
-    {% include "./cards.html" with objects=passed_date color='danger' text="'Best before' date has passed. But it does not necessarily mean that the food is no longer edible. Check before you throw in the trash."%}
+    {% include "./use_up_today_cards.html" with objects=passed_date color='danger' text="'Best before' date has passed. But it does not necessarily mean that the food is no longer edible. Check before you throw in the trash." note='Date has passed:' %}
 
-    {% include "./cards.html" with objects=should_use color='warning' text='You should use up today.'%}
+    {% include "./use_up_today_cards.html" with objects=should_use color='warning' text='You should use up today.' note="'Best before' date:" %}
 
 {% endblock content %}

@@ -3,7 +3,7 @@
 
 {% block page_header %}
 
-  <div class='jumbotron mt-4'>
+  <div class='jumbotron mt-4' style="background-color:#dcf2f5;">
     <h1 class="display-4">Cooking Manager</h1>
     <p class="lead">Track your pantry and fridge inventory and store your favorite recipes.</p>
     <hr class="my-4">
@@ -19,7 +19,7 @@
         <a class="btn btn-sm btn-secondary" href="{% url 'manage_ingredients:recipes' %}">Recipes &raquo;</a>
       {% else %}
         <p>Register Your Account. Already Registered? Please log in.</p>
-        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
+        <a class="btn btn-lg btn-info" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
         <a class="btn btn-lg btn-secondary" href="{% url 'users:login' %}" role="button">Log in &raquo;</a>
         <br>
       {% endif %}

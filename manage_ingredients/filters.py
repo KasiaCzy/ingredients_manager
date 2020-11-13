@@ -22,7 +22,7 @@ def ingredients(request):
 
 class IngredientFilter(django_filters.FilterSet):
     category = django_filters.ModelChoiceFilter(
-        label='Category', lookup_expr='isnull',
+        label='Category',
         widget=forms.Select(attrs={'class': 'form-control mr-3'}), queryset=categories
     )
     name = django_filters.CharFilter(

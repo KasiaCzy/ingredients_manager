@@ -6,49 +6,17 @@
 
 {% block content %}
 
-  <a class="btn btn-primary mt-2 mb-4" href="{% url 'manage_ingredients:add_recipe' %}" role="button">Add recipe &raquo;</a>
+  <a class="btn btn-info mt-2 mb-4" href="{% url 'manage_ingredients:add_recipe' %}" role="button">Add recipe &raquo;</a>
   <br>
     <form method="get" class="form-inline">
       <div class="form-row">
         {{ filter.form.as_p }}
       </div>
-      <button class="btn btn-primary ml-4" type="submit">Search</button>
+      <button class="btn btn-info ml-4" type="submit">Search</button>
     </form>
   <br>
   {% if recipes %}
-  <div class="row row-cols-1 row-cols-md-2">
-    {% for recipe in recipes %}
-      <div class="col mb-4">
-          <div class="card">
-          <div class="card-header text-center">
-            <h5>{{ recipe.title }}</h5>
-            <br>
-            <a href="{% url 'manage_ingredients:edit_recipe' recipe.id %}">
-              <button type="button" class="btn btn-sm btn-warning">Edit</button></a>
-            <a href="{% url 'manage_ingredients:delete_recipe' recipe.id %}">
-              <button type="button" class="btn btn-sm btn-danger">Delete</button></a>
-          </div>
-          <div class="card-body text-primary">
-            <p>Ingredients you already have:</p>
-            <ul>
-                {% for ingredient in recipe.ingredient.all %}
-                    <li>{{ ingredient.name }}
-                      <ul>
-                      {% for i in ingredient.ownedingredient_set.all %}
-                        <li>{{ i.quantity | floatformat}} {{ ingredient.get_unit_display }}
-                            | 'best before' date: {{ i.best_before | date:"j M Y" }} | tip: "{{ i.tip }}"</li>
-                      {% endfor %}
-                      </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-            <a href="{{ recipe.link }}" target="_blank" rel="noopener">
-              <button type="button" class="btn btn-outline-primary">Open this recipe &raquo;</button></a>
-          </div>
-          </div>
-      </div>
-    {% endfor %}
-    </div>
+    {% include "./recipes_cards.html" with buttons='true' %}
   {% else %}
     <h2>Store all your favorite recipes in one place.</h2>
   {% endif %}

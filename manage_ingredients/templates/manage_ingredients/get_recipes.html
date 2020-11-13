@@ -6,33 +6,7 @@
 {% endblock page_header %}
 
 {% block content %}
-  <div class="row row-cols-1 row-cols-md-2">
-    {% for recipe in recipes %}
-          <div class="col mb-4">
-          <div class="card">
-          <div class="card-header text-center">
-            <h5>{{ recipe.title }}</h5>
-          </div>
-          <div class="card-body text-primary">
-            <p>Ingredients you already have:</p>
-            <ul>
-                {% for ingredient in recipe.ingredient.all %}
-                    <li>{{ ingredient.name }}
-                      <ul>
-                      {% for i in ingredient.ownedingredient_set.all %}
-                        <li>{{ i.quantity | floatformat}} {{ ingredient.get_unit_display }}
-                            | 'best before' date: {{ i.best_before | date:"j M Y"  }}</li>
-                      {% endfor %}
-                      </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-            <a href="{{ recipe.link }}" target="_blank" rel="noopener">
-              <button type="button" class="btn btn-outline-primary">Open this recipe &raquo;</button></a>
-          </div>
-        </div>
-        </div>
-    {% endfor %}
-    </div>
+
+  {% include "./recipes_cards.html" %}
 
 {% endblock content %}

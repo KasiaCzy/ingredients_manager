@@ -21,7 +21,7 @@ class EditIngredientForm(forms.ModelForm):
 class AddOwnedIngredientForm(forms.ModelForm):
     class Meta:
         model = OwnedIngredient
-        fields = ['quantity', 'best_before', 'tip']
+        fields = ['quantity', 'best_before', 'note']
         widgets = {
             'best_before': DateInput()
         }
@@ -30,7 +30,7 @@ class AddOwnedIngredientForm(forms.ModelForm):
 class EditOwnedIngredientForm(forms.ModelForm):
     class Meta:
         model = OwnedIngredient
-        fields = ['quantity', 'best_before', 'tip']
+        fields = ['quantity', 'best_before', 'note']
         widgets = {
             'best_before': DateInput()
         }
