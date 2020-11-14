@@ -31,8 +31,6 @@
         <th scope="col">Category</th>
         <th scope="col">Name</th>
         <th scope="col">In Store</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
         <th scope="col">Unit</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -45,18 +43,16 @@
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ ingredient.category.name }}</td>
         <td>{{ ingredient.name }}</td>
-        <td>{{ ingredient.total | floatformat }}</td>
         <td>
           <a href="{% url 'manage_ingredients:owned_ingredients' ingredient.id %}">
-            <button type="button" class="btn btn-light btn-sm">
+            <button type="button" class="btn btn-light btn-sm mr-2">
               <img src="{% static 'images/pantry.png' %}" width="30" height="26">
             </button>
           </a>
-        </td>
-        <td>
+          {{ ingredient.total | floatformat }}
           <a href="{% url 'manage_ingredients:add_owned_ingredient' ingredient.id %}">
-            <button type="button" class="btn btn-light btn-sm">
-              <img src="{% static 'images/basket.png' %}" width="15" height="20">
+            <button type="button" class="btn btn-light btn-sm ml-2">
+              <img src="{% static 'images/basket.png' %}" width="14" height="18">
             </button>
           </a>
         </td>

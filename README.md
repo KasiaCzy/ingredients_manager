@@ -11,7 +11,11 @@
 This django project is created to improve my django development skills.
 
 ## Screenshots
-
+![Example screenshot](./img_github/img1.png)
+![Example screenshot](./img_github/img2.png)
+![Example screenshot](./img_github/img3.png)
+![Example screenshot](./img_github/img4.png)
+![Example screenshot](./img_github/img5.png)
 
 ## Technologies
 * Django - version 3.1.3
