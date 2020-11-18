@@ -133,10 +133,15 @@ def add_owned_ingredient(request, ingredient_id, redirect_url, url_name):
                 return redirect(redirect_url, ingredient_id=ingredient_id)
             else:
                 return redirect(redirect_url)
-
-    context = {'object': ingredient.id, 'ingredient': ingredient, 'form': form,
-               'url_name': url_name,
-               'url_back': 'manage_ingredients:ingredients_list', 'title': ingredient.name}
+    if redirect_url == 'manage_ingredients:owned_ingredients':
+        context = {'object': ingredient.id, 'ingredient': ingredient, 'form': form,
+                   'url_name': url_name,
+                   'url_back': 'manage_ingredients:owned_ingredients', 'object_back': ingredient_id,
+                   'title': ingredient.name}
+    else:
+        context = {'object': ingredient.id, 'ingredient': ingredient, 'form': form,
+                   'url_name': url_name,
+                   'url_back': 'manage_ingredients:ingredients_list', 'title': ingredient.name}
     return render(request, 'manage_ingredients/add.html', context)
 
 

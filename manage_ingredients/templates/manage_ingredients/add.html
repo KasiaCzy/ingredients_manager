@@ -23,7 +23,11 @@
     {% csrf_token %}
     {% bootstrap_form form %}
       <button name="submit" class="btn btn-info">Add</button>
+      {% if object_back %}
+      <a class="btn btn-sm btn-secondary" href="{% url url_back object_back%}">Back</a>
+      {% else %}
       <a class="btn btn-sm btn-secondary" href="{% url url_back %}">Back</a>
+      {% endif %}
     </form>
     </form>
 
