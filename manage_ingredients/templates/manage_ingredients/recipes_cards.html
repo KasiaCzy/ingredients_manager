@@ -14,7 +14,7 @@
         </div>
         <div class="card-body text-info">
           <p>Currently in your fridge and pantry:</p>
-          <ul>
+          <ul class="recipe-ingredients-list">
             {% for ingredient in recipe.ingredient.all %}
               {% if ingredient.ownedingredient_set.all %}
                 <li>{{ ingredient.name }}
